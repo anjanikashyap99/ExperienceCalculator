@@ -1,0 +1,382 @@
+﻿@{
+    ViewData["Title"] = "Experience Calculator - Calculate Your Total Work Experience";
+    ViewData["MetaDescription"] = "Calculate your total professional work experience instantly. Add multiple job periods, handle overlaps automatically, and get accurate years and months of experience — free, no signup required.";
+}
+<!-- Hero Section -->
+<section class="hero-section text-white text-center">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold mb-3">
+            Calculate Your Work Experience in Seconds
+        </h1>
+        <p class="lead mb-4 hero-subtext mx-auto">
+            Add your employment history and instantly calculate your total professional experience.
+        </p>
+        <a href="#calculator" class="btn btn-light btn-lg rounded-pill px-4 fw-semibold">
+            Start Calculating <i class="bi bi-arrow-down-circle ms-1"></i>
+        </a>
+    </div>
+</section>
+
+<!-- Calculator Section (placeholder for now) -->
+<!-- Calculator Section -->
+<section id="calculator" class="container py-5 fade-in-section">
+    <h2 class="text-center fw-bold mb-2">Add Your Employment Details</h2>
+    <p class="text-center text-muted mb-4">Enter each job period below to calculate your total experience.</p>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <!-- Container jahan sab job cards render honge (JS se) -->
+            <div id="jobCardsContainer">
+
+                <!-- Job Card Template (Card #1) -->
+                <div class="card job-card shadow-sm mb-3" data-job-id="1">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title fw-bold mb-0">Experience #1</h5>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small fw-semibold">Start Month</label>
+                                <select class="form-select start-month" aria-label="Start Month">
+                                    <option value="">Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small fw-semibold">Start Year</label>
+                                <select class="form-select start-year" aria-label="Start Year"></select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small fw-semibold">End Month</label>
+                                <select class="form-select end-month" aria-label="End Month">
+                                    <option value="">Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small fw-semibold">End Year</label>
+                                <select class="form-select end-year" aria-label="End Year"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-check mt-3">
+                            <input class="form-check-input current-job-check" type="checkbox" id="currentJob1">
+                            <label class="form-check-label small" for="currentJob1">
+                                I currently work here
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- ↑ ye jobCardsContainer ka closing div hai (already hai) -->
+            <!-- Add Another Job Button -->
+            <div class="text-center mb-4">
+                <button type="button" class="btn btn-outline-primary rounded-pill px-4" id="addJobBtn">
+                    <i class="bi bi-plus-circle me-1"></i> Add Another Job
+                </button>
+            </div>
+
+            <!-- Calculate Button -->
+            <div class="text-center mt-4">
+                <button type="button" class="btn btn-primary btn-lg rounded-pill px-5" id="calculateBtn">
+                    Calculate My Experience
+                </button>
+            </div>
+
+            <!-- Result Card (hidden by default) -->
+            <div id="resultCard" class="card result-card shadow mt-4 d-none">
+                <div class="card-body text-center py-4">
+                    <p class="text-muted mb-1 small text-uppercase fw-semibold">Your Total Experience</p>
+                    <h2 class="fw-bold display-5 text-primary mb-3" id="resultMainText">0 Years 0 Months</h2>
+
+                    <div class="row justify-content-center g-3 mt-2">
+                        <div class="col-6 col-md-4">
+                            <div class="result-stat">
+                                <div class="fw-bold fs-4" id="resultTotalMonths">0</div>
+                                <div class="text-muted small">Total Months</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="result-stat">
+                                <div class="fw-bold fs-4" id="resultJobCount">0</div>
+                                <div class="text-muted small">Job Periods</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 d-flex flex-wrap justify-content-center gap-2">
+                        <button type="button" class="btn btn-outline-primary rounded-pill px-4" id="copyResultBtn">
+                            <i class="bi bi-clipboard me-1"></i> Copy Result
+                        </button>
+                        <button type="button" class="btn btn-outline-success rounded-pill px-4" id="shareWhatsappBtn">
+                            <i class="bi bi-whatsapp me-1"></i> WhatsApp
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="shareLinkedinBtn">
+                            <i class="bi bi-linkedin me-1"></i> LinkedIn
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="bg-light py-5 fade-in-section">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-2">How It Works</h2>
+        <p class="text-center text-muted mb-5">Calculate your total experience in just 3 simple steps</p>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center px-3">
+                    <div class="how-it-works-icon mx-auto mb-3">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <h3 class="h5 fw-bold">1. Enter Your Dates</h3>
+                    <p class="text-muted small mb-0">
+                        Select the start and end month/year for your job, or mark it as your current position.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center px-3">
+                    <div class="how-it-works-icon mx-auto mb-3">
+                        <i class="bi bi-plus-circle"></i>
+                    </div>
+                    <h3 class="h5 fw-bold">2. Add Multiple Jobs</h3>
+                    <p class="text-muted small mb-0">
+                        Click "Add Another Job" to include every position you've held — we'll handle overlaps automatically.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center px-3">
+                    <div class="how-it-works-icon mx-auto mb-3">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h3 class="h5 fw-bold">3. Get Instant Results</h3>
+                    <p class="text-muted small mb-0">
+                        Click "Calculate" and instantly see your total professional experience in years and months.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 fade-in-section">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-2">Why Use Our Experience Calculator?</h2>
+        <p class="text-center text-muted mb-5">Built to be accurate, fast, and easy to use — no signup required.</p>
+
+        <div class="row g-4">
+            <div class="col-sm-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon"><i class="bi bi-bullseye"></i></div>
+                    <h3 class="h6 fw-bold mt-3">Accurate Calculation</h3>
+                    <p class="text-muted small mb-0">
+                        Reliable month-by-month math ensures your total experience is always calculated correctly.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon"><i class="bi bi-briefcase"></i></div>
+                    <h3 class="h6 fw-bold mt-3">Multiple Jobs</h3>
+                    <p class="text-muted small mb-0">
+                        Add as many employment periods as you need — perfect for combining experience across companies.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon"><i class="bi bi-intersect"></i></div>
+                    <h3 class="h6 fw-bold mt-3">Overlap Detection</h3>
+                    <p class="text-muted small mb-0">
+                        Overlapping job periods are automatically merged so your experience is never double-counted.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon"><i class="bi bi-clock-history"></i></div>
+                    <h3 class="h6 fw-bold mt-3">Current Job Support</h3>
+                    <p class="text-muted small mb-0">
+                        Mark a role as "currently working" and we'll calculate up to today's date automatically.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon"><i class="bi bi-phone"></i></div>
+                    <h3 class="h6 fw-bold mt-3">Mobile Friendly</h3>
+                    <p class="text-muted small mb-0">
+                        Fully responsive design lets you calculate your experience easily from any device.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+                    <h3 class="h6 fw-bold mt-3">No Registration</h3>
+                    <p class="text-muted small mb-0">
+                        No sign-up, no login, no data stored on any server — just open the page and calculate.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="bg-light py-5 fade-in-section">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-2">Frequently Asked Questions</h2>
+        <p class="text-center text-muted mb-5">Everything you need to know about calculating your work experience</p>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="faqAccordion">
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeading1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                                How do I calculate my total work experience?
+                            </button>
+                        </h3>
+                        <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Simply enter the start and end month/year for each job you've held using our calculator above, then click "Calculate My Experience." The tool automatically adds up the duration of each period and gives you the total in years and months.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeading2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                                How is work experience calculated?
+                            </button>
+                        </h3>
+                        <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Work experience is calculated by counting the number of months between a start date and an end date for each job, then converting the total number of months into years and months (for example, 30 months equals 2 years and 6 months).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeading3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                                Can I calculate experience from multiple companies?
+                            </button>
+                        </h3>
+                        <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Yes. Click "Add Another Job" to include every position you've held across different companies. The calculator will combine all periods into a single total experience figure.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeading4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                                Does the calculator handle overlapping employment?
+                            </button>
+                        </h3>
+                        <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Yes. If two or more job periods overlap — for example, a freelance project running alongside a full-time role — the overlapping months are automatically merged so they are not counted twice in your total.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeading5">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+                                Can I calculate experience for a current job?
+                            </button>
+                        </h3>
+                        <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Yes. Check the "I currently work here" box for any ongoing role, and the calculator will automatically use today's date as the end date when calculating your total experience.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeading6">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6">
+                                How many months of experience do I have?
+                            </button>
+                        </h3>
+                        <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHeading6" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Your result card shows the exact total number of months alongside the years-and-months breakdown, so you always know both figures at a glance.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeading7">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse7" aria-expanded="false" aria-controls="faqCollapse7">
+                                How do I calculate years of experience for my resume?
+                            </button>
+                        </h3>
+                        <div id="faqCollapse7" class="accordion-collapse collapse" aria-labelledby="faqHeading7" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Add all your past and current job periods into the calculator, click "Calculate," then use the "Copy Result" button to instantly copy a ready-to-use sentence stating your total years of experience for your resume or LinkedIn profile.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script type="application/ld+json">
+        {
+            "@@context": "https://schema.org",
+            "@@type": "WebApplication",
+            "name": "Experience Calculator",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Any",
+            "description": "Free online tool to calculate total professional work experience from multiple job periods, with automatic overlap detection.",
+            "offers": {
+                "@@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            }
+        }
+    </script>
+}
