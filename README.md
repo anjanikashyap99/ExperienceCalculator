@@ -81,7 +81,7 @@ Users can enter each employment period by selecting:
 
 Users can also add multiple jobs using the **"Add Another Job"** option.
 
-![Experience Calculator - Employment Details](screenshots/experience-form.png)
+![Experience Calculator - Employment Details](ExperienceCalculator/wwwroot/screenshots/experience-form.png)
 
 ---
 
