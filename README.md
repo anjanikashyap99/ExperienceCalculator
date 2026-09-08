@@ -65,7 +65,7 @@ The calculator processes the selected employment periods and determines the over
 
 The landing page introduces the Experience Calculator and provides a clear call-to-action to start calculating professional experience.
 
-![Experience Calculator - Home Page](screenshots/home-page.png)
+![Experience Calculator - Home Page](ExperienceCalculator/wwwroot/screenshots/home-page.png)
 
 ---
 
